@@ -2,6 +2,11 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Webcam from "react-webcam";
+import Messages from "./Messages.js";
+import Container from "react-bootstrap/Container"
+import Row from "react-bootstrap/Row"
+import Col from "react-bootstrap/Col"
+
 const request = require('request');
 const subscriptionKey = '6ec108bce66e40899ddd7e3486b44368';
 const uriBase = 'https://eastus.api.cognitive.microsoft.com/face/v1.0/detect';
@@ -66,15 +71,10 @@ class WebcamCapture extends React.Component {
             console.log('Error: ', error);
             return;
         }
-        if (body == null) {
-            console.log('AAAAAAAAAYYYYLMAOOOOOOO');
-            return;
-        }
+
         let jsonResponse = JSON.stringify(JSON.parse(body), null, '  ');
         var emotionObj = JSON.parse(body)[0].faceAttributes.emotion;
-        //console.log(emotionObj)
         this.chooseEmotion(emotionObj);
-        // this.setState({emotion: });
         this.setState({azureResponse: jsonResponse});
             console.log(jsonResponse);
         });
@@ -83,6 +83,10 @@ class WebcamCapture extends React.Component {
         var value;
         var max = 0.0;
         for (var key in emotionObj) {
+            if (key == 'neutral') {
+                emotionObj[key] *= 0.25;
+                console.log(emotionObj[key]);
+            }
             if (emotionObj[key] > max) {
                 value = key;
                 max = emotionObj[key];
@@ -103,30 +107,33 @@ class WebcamCapture extends React.Component {
 
         return (
             <div id='content'>
-                <Webcam
-                    audio={false}
-                    height={400}
-                    ref={this.setRef}
-                    screenshotFormat="image/jpeg"
-                    width={400}
-                    videoConstraints={videoConstraints}
-                    />
-                    <img width='30%' height='30%'src = {this.state.imgLink}/>
-                <button onClick={this.capture}>Capture photo</button>
-            <div id='display'>
-                <input 
-                    type="text" 
-                    name="inputImage" 
-                    id="inputImage" 
-                    onChange={(e) => this.setState({ imageUrl: e.target.value })}
-                    />
-                <button onClick={() => this.detectFace(this.state.imageUrl)}>Azure Test</button>
+                <Row>
+                    <div className='col-sm-6'>
+                        <div className='mycontent-left'>
+                            <div className='card border-secondary'>
+                                <Webcam
+                                    audio={false}
+                                    height={400}
+                                    ref={this.setRef}
+                                    screenshotFormat="image/jpeg"
+                                    width={400}
+                                    videoConstraints={videoConstraints}
+                                />
+
+                                <div id='separate'>
+                                    <div id='responseDisplay'>Response: {this.state.emotion}</div>
+                                    <div id='button'><button onClick={this.capture}>Capture photo</button></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
             
-                <div id='responseDisplay'>Response: {this.state.emotion}</div>
+                    <Col>
+                        <Messages emotion={this.state.emotion}/>
+                    </Col>  
+                </Row>
             </div>
-        </div>
-
-
+            
     );
   }
 }
