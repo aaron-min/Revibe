@@ -113,7 +113,7 @@ class WebcamCapture extends React.Component {
                             <div className='card border-secondary' id="left">
                                 <div className='card-body'>
                                     <div className="col-xs-auto" align="center"><h1 className="card-title">Take a photo of yourself!</h1></div>
-                                    <p className="card-text">Change your facial expression for the camera and click "Take photo". The facial recognition API will detect and respond to your expression!</p>
+                                    <p className="card-text">Change your facial expression for the camera and click "Capture photo". The facial recognition API will detect and respond to your expression!</p>
                                     <div className="col-xs-auto"></div>
                                     <div className="col-xs-auto embed-responsive-16by9" id="thing">
                                         <Webcam

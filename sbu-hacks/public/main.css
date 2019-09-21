@@ -3,7 +3,10 @@
 	-webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-
+video {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+  }
 html,body
 {
     width: 100%;
