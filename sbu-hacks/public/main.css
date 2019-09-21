@@ -16,3 +16,28 @@ html,body
 .background {
     background-color: #252525;
 }
+
+#left{
+    height: 680px; 
+    margin-top: 3%; 
+    margin-left: 3%; 
+    border-radius: 3%; 
+    background-color: #D3D3D3;
+}
+
+.col-sm-auto{
+    border-radius: 30%;
+}
+
+#right{
+    height: 680px; 
+    margin-top: 3%; 
+    margin-right: 3%; 
+    border-radius: 3%; 
+    background-color: #D3D3D3;
+}
+
+#thing{
+    border-radius: 30%;
+    align-items: center;
+}

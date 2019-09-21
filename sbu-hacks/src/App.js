@@ -110,27 +110,44 @@ class WebcamCapture extends React.Component {
                 <Row>
                     <div className='col-sm-6'>
                         <div className='mycontent-left'>
-                            <div className='card border-secondary'>
-                                <Webcam
-                                    audio={false}
-                                    height={400}
-                                    ref={this.setRef}
-                                    screenshotFormat="image/jpeg"
-                                    width={400}
-                                    videoConstraints={videoConstraints}
-                                />
+                            <div className='card border-secondary' id="left">
+                                <div className='card-body'>
+                                    <div className="col-xs-auto" align="center"><h1 className="card-title">Take a photo of yourself!</h1></div>
+                                    <p className="card-text">Change your facial expression for the camera and click "Take photo". The facial recognition API will detect and respond to your expression!</p>
+                                    <div className="col-xs-auto"></div>
+                                    <div className="col-xs-auto embed-responsive-16by9" id="thing">
+                                        <Webcam
+                                            audio={false}
+                                            height={400}
+                                            ref={this.setRef}
+                                            screenshotFormat="image/jpeg"
+                                            width={400}
+                                            videoConstraints={videoConstraints}
+                                        />
 
-                                <div id='separate'>
-                                    <div id='responseDisplay'>Response: {this.state.emotion}</div>
-                                    <div id='button'><button onClick={this.capture}>Capture photo</button></div>
+                                        <div id='separate'>
+                                            <div id='responseDisplay'>Response: {this.state.emotion}</div>
+                                            <div id='button'><button onClick={this.capture}>Capture photo</button></div>
+                                        </div>
+                                    </div>
+                                    <div className="col-xs-auto"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-            
-                    <Col>
-                        <Messages emotion={this.state.emotion}/>
-                    </Col>  
+                    
+                    <div className="col-sm-6">
+                        <div className="mycontent-right">
+                            <div className="card border" id="right">
+                                <div className="card-body">
+                                    <h1 className="card-title">Your Feed:</h1>
+                                    <hr className="border-secondary"></hr>
+                                    <p className="card-text"></p>
+                                    <Messages emotion={this.state.emotion}/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </Row>
             </div>
             
