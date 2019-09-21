@@ -34,10 +34,10 @@ class WebcamCapture extends React.Component {
     }
 
     componentDidMount() {
-        this.timerID = setInterval(
+        /*this.timerID = setInterval(
           () => this.capture(),
           3000
-        );
+        );*/
       }
       
     setRef = webcam => {
@@ -51,7 +51,6 @@ class WebcamCapture extends React.Component {
     };
 
     detectFace = (img) =>{
-    console.log(img);
     
         let options = {
         uri: uriBase,
@@ -62,16 +61,18 @@ class WebcamCapture extends React.Component {
             'Ocp-Apim-Subscription-Key' : subscriptionKey
             }
         };
-        console.log("options");
-        console.log(options);
         request.post(options, (error, response, body) => {
         if (error) {
             console.log('Error: ', error);
             return;
         }
+        if (body == null) {
+            console.log('AAAAAAAAAYYYYLMAOOOOOOO');
+            return;
+        }
         let jsonResponse = JSON.stringify(JSON.parse(body), null, '  ');
         var emotionObj = JSON.parse(body)[0].faceAttributes.emotion;
-
+        //console.log(emotionObj)
         this.chooseEmotion(emotionObj);
         // this.setState({emotion: });
         this.setState({azureResponse: jsonResponse});
@@ -79,16 +80,18 @@ class WebcamCapture extends React.Component {
         });
     }
     chooseEmotion = (emotionObj) =>{
-        if(emotionObj.happiness>emotionObj.sadness){
-            this.setState({
-                emotion: "happiness"
-            })
+        var value;
+        var max = 0.0;
+        for (var key in emotionObj) {
+            if (emotionObj[key] > max) {
+                value = key;
+                max = emotionObj[key];
+            }
+                
         }
-        else{
-            this.setState({
-                emotion: "sadness"
-            })
-        }
+        this.setState({
+            emotion: value
+        })
     }
 
     render() {
