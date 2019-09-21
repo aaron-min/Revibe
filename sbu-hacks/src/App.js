@@ -54,6 +54,7 @@ class WebcamCapture extends React.Component {
                     <p>{this.state.imgLink}</p>
                 <button onClick={this.capture}>Capture photo</button>
             </div>
+            
 
     );
   }
