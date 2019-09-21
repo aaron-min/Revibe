@@ -22,6 +22,14 @@ class WebcamCapture extends React.Component {
             imgLink: ""
         };
     }
+
+    componentDidMount() {
+        this.timerID = setInterval(
+          () => this.capture(),
+          3000
+        );
+      }
+      
     setRef = webcam => {
         this.webcam = webcam;
     };
